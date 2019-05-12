@@ -79,21 +79,22 @@ Check out using `match` instead of `if`. For some things, like destructuring, it
 ```
 
 If they use an `if` on their `.is_empty()` check:
-```
+
+````md
 See about doing a  `match`, instead of `if`, on `your_trimmed_variable.is_empty()`. And, if it's `true`, instantly output our "Fine. Be that way!" constant. Then, everything else will be in the `false` arm.
 Like this:
-    ```rust
-    match your_trimmed_variable.is_empty() {
-        true => FINE,
-        false => {
-    ```
+```rust
+match your_trimmed_variable.is_empty() {
+    true => FINE,
+    false => {
+```
 Be aware that if you use Clippy, it will tell you that it is improper, it's purely a stylistic choice :)
 We can tell Clippy to allow it with `#[allow(clippy::match_bool)]`.
-```
+````
 
-If they are struggling with how to check if it's a question:
+If they are struggling with how to check if it's a question or use something like `chars().last()`:
 ```
-Have a look at `.ends_with()` to check if it's a question.
+Have a look at `.ends_with()` to check if it's a question, it's much cleaner.
 ```
 
 If they use regex:
@@ -111,14 +112,14 @@ We don't need to create separate functions here. We can put this all in one by s
 ```
 
 If they don't use a `match` to compare the conditions:
-```
+````md
 We can `match` on just two conditions: `is_question` and `is_yelling`. Like this:
-    ```rust
-    match (is_question, is_yelling) {
-        (true, false) => SURE,
-        ...
-    ```
+```rust
+match (is_question, is_yelling) {
+    (true, false) => SURE,
+    ...
 ```
+````
 
 If they put their constants inside the function:
 ```
@@ -136,5 +137,5 @@ Also, the use of `const` allows us to have it globally scopable.
 
 If they use `_` instead of `false` in their match statement:
 ```
-Just a stylistic note, the `_` in the true/false `match` can simply be `false` because there is no other option :)
+Using the `_` in the true/false `match` suggests that there's something else to catch while there isn't. This makes it less readable and can even be a source of bugs in some cases. So, we should limit its use to only when it's needed. Here, we should use `false` because there is no other option :)
 ```
